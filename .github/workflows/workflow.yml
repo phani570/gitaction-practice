@@ -6,6 +6,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    outputs:
+      outcome: ${{ steps.publish.outputs.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -22,6 +24,11 @@ jobs:
         run: npm ci
       - name: test
         run: npm run test
+      
+      #output publish
+      - name: output
+        id: publish
+        run: echo 'name="Phani"' >> $GITHUB_OUTPUT
       
 
   build:
