@@ -23,8 +23,24 @@ jobs:
       - name: test
         run: npm run test
 
-  deploy:
+  build:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: caching dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: dependencies-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: build
+        run: npm run build
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: deploy
