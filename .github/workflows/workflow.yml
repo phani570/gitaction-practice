@@ -35,6 +35,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: getting output
+        run: echo "${{ needs.test.outputs.outcome }}"
       - name: Get code
         uses: actions/checkout@v3
       - name: caching dependencies
