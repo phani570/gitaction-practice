@@ -1,4 +1,4 @@
-workflow:
+name: workflow
 on:
   - push
   - workflow_dispatch
