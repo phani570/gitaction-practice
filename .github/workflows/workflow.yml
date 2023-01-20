@@ -13,12 +13,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: caching dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: dependencies-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: test
         run: npm run test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: deploy
